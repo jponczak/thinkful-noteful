@@ -1,0 +1,35 @@
+  /* screen sizes 500px and up */
+  @media(min-width:500px) {
+    .App-landing {
+      display: flex;
+      height: 100%;
+    }
+
+    .App-folders {
+      height: 100vh;
+    }
+
+    .App-notes, .App-folders {
+      height: 100vh;
+    }
+    nav li a {
+      font-size: 1.2rem;
+    }
+
+  footer p {
+    font-size: 1rem;
+  }
+
+  .error-message {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+  
+  }
+
+  /* screen sizes 700px and up */
+  @media(min-width:700px) {
+    .btn {
+      padding: 1rem 3rem;
+    }
+  }
