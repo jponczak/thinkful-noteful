@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import {Route, Link} from 'react-router-dom';
 import './App.css';
 import './Flex.css';
-import dummyStore from '../dummy-data/dummy-store';
+// import Header from '../Header/Header';
+import Folders from '../Folders/Folders';
+import Notes from '../Notes/Notes';
+// import dummyStore from '../dummy-data/dummy-store';
 
 
 class App extends Component {
@@ -14,10 +17,23 @@ class App extends Component {
     render() {
       return (
         <div className="App">
+          {/* <Header /> */}
           <nav>
-            <h1>Noteful</h1>
+            <Link to='/'>Noteful</Link>
           </nav>
-          <section className="App-landing">
+          <div className = 'App-folders'>
+            <Route 
+              exact path='/'
+              component = {Folders}
+            />
+          </div>
+          <div className = 'App-notes'>
+          <Route 
+              exact path='/'
+              component = {Notes}
+            />
+          </div>
+          {/* <section className="App-landing">
             <section className="App-folders">
               <section>
                 <ul>
@@ -47,7 +63,7 @@ class App extends Component {
             </section>
           </section>
           <footer className="App-about">
-          </footer>
+          </footer> */}
           {/* <header className="noteHeader">
           </header> */}
         </div>
