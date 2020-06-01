@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch} from 'react-router-dom';
 import './App.css';
 import './Flex.css';
 // import Header from '../Header/Header';
 import Folders from '../Folders/Folders';
+import Folder from '../Folder/Folder';
 import Notes from '../Notes/Notes';
+import Note from '../Note/Note';
 // import dummyStore from '../dummy-data/dummy-store';
 
 
@@ -21,18 +23,25 @@ class App extends Component {
           <nav>
             <Link to='/'>Noteful</Link>
           </nav>
-          <div className = 'App-folders'>
-            <Route 
+          <div>
+          <Route 
               exact path='/'
               component = {Folders}
-            />
-          </div>
-          <div className = 'App-notes'>
+          />
+          <Route
+              path='/folders/:folderId'
+              component = {Folder}
+          />
           <Route 
               exact path='/'
               component = {Notes}
-            />
+          />
+          <Route 
+              path='/notes/:noteId'
+              component = {Note}
+          />
           </div>
+
           {/* <section className="App-landing">
             <section className="App-folders">
               <section>
