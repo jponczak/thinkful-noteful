@@ -1,45 +1,67 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-
-import DUMMYDATA from '../dummy-data/dummy-store';
+import './Folder.css';
+import '../Folders/Folders.css';
 
 class Folder extends Component {
-
+    constructor(props) {
+        super(props);
+      }
     render() {
-        console.log('checking out folder ...');
-        console.log(this.props.match.params.folderId);
-
-
-        const folder = DUMMYDATA.folders.find(p =>
+        console.log('folder!');
+        console.log(this.props);
+        const folder = this.props.fData.find(p =>
             p.id === this.props.match.params.folderId
         )
 
-        const notes = DUMMYDATA.notes.filter(function (note) { 
+        const notes = this.props.nData.filter(function (note) { 
             return folder.id === note.folderId; 
         });
 
-        console.log(notes);
-
-
-        return (
-            <div>
-            <div className='App-folder'>
-
-            <h2>{folder.name}</h2>
-            </div>
-            <div className='App-note'>
-            <ul className='NotesList'>
-            {notes.map(note => 
+        const notesList = notes.map(note => {
+            return (
                 <li key={note.id}>
                     <Link to={`/notes/${note.id}`}>
-                        {note.name}
-                        {note.modified}
+                        {note.name} -- {note.modified}
                     </Link>
                 </li>
-            )}
-        </ul>
+            )
+        })
+
+        return (
+        <div>
+            <div className='App-folder'>
+            <ul className='FolderList'>
+                {this.props.fData.map(folder => 
+                (folder.id === this.props.match.params.folderId) ?
+                (
+                    <li className='foundFolder' key={folder.id}>
+                        <Link to={`/folders/${folder.id}`}>
+                            {folder.name}
+                        </Link>
+                    </li>
+                ) :
+                (     
+                    <li key={folder.id}>
+                        <Link to={`/folders/${folder.id}`}>
+                            {folder.name}
+                        </Link>
+                    </li>)
+
+                )}
+                <li>
+                    <button type="submit">+ folderz</button>
+                </li>
+
+            </ul>
+
         </div>
+        <div className='App-note'>
+            <ul className='NotesList'>
+                {notesList}
+            </ul>
         </div>
+    </div>
         )
     }
 }

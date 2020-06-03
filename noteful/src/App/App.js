@@ -2,79 +2,55 @@ import React, {Component} from 'react';
 import {Route, Link, Switch} from 'react-router-dom';
 import './App.css';
 import './Flex.css';
-// import Header from '../Header/Header';
 import Folders from '../Folders/Folders';
 import Folder from '../Folder/Folder';
-import Notes from '../Notes/Notes';
-import Note from '../Note/Note';
-// import dummyStore from '../dummy-data/dummy-store';
-
+// import Note from '../Note/Note';
 
 class App extends Component {
-    state = {
-        notes: [],
-        folders: []
-    };
-
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //       notes: [],
+  //       folders: []
+  //   };
+  // }
     render() {
+      console.log('app props');
+      console.log(this.props);
+      const folderData = this.props.data.folders;
+      const notesData = this.props.data.notes;
+      console.log(folderData);
+      // const Folders = (props) => console.log(this.props.data);
       return (
         <div className="App">
-          {/* <Header /> */}
           <nav>
             <Link to='/'>Noteful</Link>
           </nav>
           <div>
+          {/* <div className='addFolder'>
+            <button>folder button</button>
+          </div> */}
           <Route 
-              exact path='/'
-              component = {Folders}
+              exact path='/' render={(props) => <Folders { ...props} fData={folderData} nData={notesData} />}
+              // component = {Folders}
           />
           <Route
               path='/folders/:folderId'
-              component = {Folder}
+              render={(props) => <Folder { ...props} fData={folderData} nData={notesData} />}
           />
-          <Route 
+          {/* <Route
+            path='/folders/add-folder'
+            component = {AddFolder}
+          /> */}
+          {/* <Route 
               exact path='/'
               component = {Notes}
-          />
-          <Route 
+          /> */}
+          {/* <Route 
               path='/notes/:noteId'
               component = {Note}
-          />
+          /> */}
           </div>
-
-          {/* <section className="App-landing">
-            <section className="App-folders">
-              <section>
-                <ul>
-                  <li className="folder-name">Folder 1</li>
-                  <li className="folder-name">Folder 2</li>
-                </ul>
-                <a className="folder-btn">+ Folder</a>
-              </section>
-            </section>
-            <section className="App-notes">
-              <section>
-                <section className="App-note">
-                  <h1>note 1</h1>
-                  <p>Date Modified:
-                    <span className="note-date">May 01, 2020</span>
-                    <a className="note-btn">Delete</a>                    
-                  </p>
-                </section>
-                <section className="App-note">
-                  <h1>note 2</h1>
-                  <p>Date Modified:
-                    <span className="note-date">May 01, 2020</span>
-                    <a className="note-btn">Delete</a>                    
-                  </p>
-                </section>
-              </section>
-            </section>
-          </section>
-          <footer className="App-about">
-          </footer> */}
-          {/* <header className="noteHeader">
-          </header> */}
         </div>
       )
     }
