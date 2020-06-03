@@ -4,6 +4,7 @@ import DUMMYDATA from '../dummy-data/dummy-store';
 
 class Notes extends Component {
     render() {
+        console.log('notes ...');
         return (
             <div className = 'App-notes'>
 

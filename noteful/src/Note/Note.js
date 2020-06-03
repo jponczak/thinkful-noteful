@@ -1,33 +1,48 @@
 import React, {Component} from 'react';
-import DUMMYDATA from '../dummy-data/dummy-store';
+import {Link} from 'react-router-dom';
 
 class Note extends Component {
     render() {
-        console.log('checking out note ...');
-        console.log(this.props.match.params.noteId);
-        const note = DUMMYDATA.notes.find(p =>
+        const note = this.props.nData.find(p =>
             p.id === this.props.match.params.noteId
         )
 
-        const folder = DUMMYDATA.folders.find(p => 
-            p.id === note.folderId
-        )
-
-            console.log(folder);
+        // const folder = this.props.fData.find(p => 
+        //     p.id === note.folderId
+        // )
 
             return (
             <div>
-            <div className='App-folder'>
-            <h2>{folder.name}</h2>
-        </div>
-            <div className = 'App-note'>
+                <div className='App-folder'>
+                <ul className='FolderList'>
+                    {this.props.fData.map(folder => 
+                    (folder.id === note.folderId) ?
+                    (
+                        <li className='foundFolder' key={folder.id}>
+                            <Link to={`/folders/${folder.id}`}>
+                                {folder.name}
+                            </Link>
+                        </li>
+                    ) :
+                    (     
+                        <li key={folder.id}>
+                            <Link to={`/folders/${folder.id}`}>
+                                {folder.name}
+                            </Link>
+                        </li>)
 
-            <article className='Note'>
-                <h2>{note.name}</h2>
-                <p>{note.content}</p>
-
-            </article>
-            </div>
+                    )}
+                    <li>
+                        <button type="submit">+ folderz</button>
+                    </li>
+                </ul>
+                </div>
+                <div className = 'App-note'>
+                    <article className='Note'>
+                        <h2>{note.name}</h2>
+                        <p>{note.content}</p>
+                    </article>
+                </div>
             </div>
         )
     }
