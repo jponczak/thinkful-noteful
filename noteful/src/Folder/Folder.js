@@ -44,14 +44,16 @@ class Folder extends Component {
                         </li>)
 
                     )}
-                    <li>
-                        <button type="submit">+ folderz</button>
-                    </li>
                 </ul>
         </div>
         <div className='App-note'>
             <ul className='NotesList'>
                 {notesList}
+                <li>
+                    <Link to='/add-note'>
+                        <button className='noteful-folder-btn'>+ note</button>
+                    </Link>
+                </li>
             </ul>
         </div>
     </div>

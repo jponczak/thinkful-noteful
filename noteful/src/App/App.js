@@ -5,6 +5,8 @@ import './Flex.css';
 import Folders from '../Folders/Folders';
 import Folder from '../Folder/Folder';
 import Note from '../Note/Note';
+import AddFolder from '../AddFolder/AddFolder';
+import AddNote from '../AddNote/AddNote';
 
 class App extends Component {
 
@@ -28,6 +30,15 @@ class App extends Component {
               path='/notes/:noteId'
               render={(props) => <Note { ...props} fData={folderData} nData={notesData} />}
           />
+          <Route
+            path='/add-folder'
+            render={(props) => <AddFolder { ...props} fData={folderData} nData={notesData} />}
+          />
+          <Route
+            path='/add-note'
+            render={(props) => <AddNote { ...props} fData={folderData} nData={notesData} />}
+          />
+
           </div>
         </div>
       )

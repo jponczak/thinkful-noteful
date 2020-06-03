@@ -1,39 +1,32 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
+
 class Note extends Component {
+
+    redirectToTarget = () => {
+        this.props.history.push(`/`)
+      }
+
     render() {
         const note = this.props.nData.find(p =>
             p.id === this.props.match.params.noteId
         )
 
-        // const folder = this.props.fData.find(p => 
-        //     p.id === note.folderId
-        // )
-
+        const folder = this.props.fData.find(p => 
+            p.id === note.folderId
+        )
             return (
             <div>
                 <div className='App-folder'>
                 <ul className='FolderList'>
-                    {this.props.fData.map(folder => 
-                    (folder.id === note.folderId) ?
-                    (
-                        <li className='foundFolder' key={folder.id}>
-                            <Link to={`/folders/${folder.id}`}>
+                    <li className='foundFolder' key={note.folderId}>
+                            <Link to={`/folders/${note.folderId}`}>
                                 {folder.name}
                             </Link>
                         </li>
-                    ) :
-                    (     
-                        <li key={folder.id}>
-                            <Link to={`/folders/${folder.id}`}>
-                                {folder.name}
-                            </Link>
-                        </li>)
-
-                    )}
                     <li>
-                        <button type="submit">+ folderz</button>
+                        <button onClick={this.redirectToTarget}> ... Back</button>
                     </li>
                 </ul>
                 </div>

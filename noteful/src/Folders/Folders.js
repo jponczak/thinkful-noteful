@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-// import Folder from '../Folder/Folder';
 import './Folders.css';
-// import DUMMYDATA from '../dummy-data/dummy-store';
 
 class Folders extends Component {
-
     render() {
-        console.log('folders props ...');
-        console.log(this.props.fData);
         var folderList = this.props.fData.map(folder => {
             return(
                 <li key={folder.id}>
@@ -34,13 +29,19 @@ class Folders extends Component {
                 <ul className='FolderList'>
                     {folderList}
                     <li>
-                        <button type="submit">+ folder</button>
+                        <Link to={`/add-folder`}>
+                            <button className='noteful-folder-btn'>+ folder</button>
+                        </Link>
                     </li>
+                </ul>
+                <ul>
+                    
                 </ul>
             </div>
             <div className = 'App-notes'>
                 <ul className='NotesList'>
                     {noteList}
+
                 </ul>
             </div>
         </div>
