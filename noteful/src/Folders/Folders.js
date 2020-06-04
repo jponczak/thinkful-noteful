@@ -13,16 +13,20 @@ class Folders extends Component {
                 </li>
             )
         })
-
+    
         var noteList = this.props.nData.map(note => {
             return(
                 <li key={note.id}>
+                <div className="note">
                     <Link to={`/notes/${note.id}`}>
-                        {note.name} :: {note.modified}
+                            {note.name}
                     </Link>
+                        <button className='note-btn-delete' type="button">delete</button>
+                        <p>Date Modified: {note.modified}</p>
+                </div>
                 </li>
             )
-        })
+        })       
         return (
         <div>
             <div className = 'App-folder'>
@@ -34,14 +38,10 @@ class Folders extends Component {
                         </Link>
                     </li>
                 </ul>
-                <ul>
-                    
-                </ul>
             </div>
             <div className = 'App-notes'>
                 <ul className='NotesList'>
                     {noteList}
-
                 </ul>
             </div>
         </div>

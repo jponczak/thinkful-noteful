@@ -13,12 +13,17 @@ class Folder extends Component {
         const notes = this.props.nData.filter(function (note) { 
             return folder.id === note.folderId; 
         });
+
         const notesList = notes.map(note => {
-            return (
+            return(
                 <li key={note.id}>
+                <div className="note">
                     <Link to={`/notes/${note.id}`}>
-                        {note.name} -- {note.modified}
+                            {note.name}
                     </Link>
+                        <button className='note-btn-delete' type="button">delete</button>
+                        <p>Date Modified: {note.modified}</p>
+                </div>
                 </li>
             )
         })

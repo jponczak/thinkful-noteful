@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-
+import '../Folders/Folders.css';
 
 class Note extends Component {
 
@@ -31,10 +31,16 @@ class Note extends Component {
                 </ul>
                 </div>
                 <div className = 'App-note'>
-                    <article className='Note'>
-                        <h2>{note.name}</h2>
-                        <p>{note.content}</p>
-                    </article>
+                    <ul className='NotesList'>
+                        <li key={note.id}>
+                            <Link to={`/notes/${note.id}`}>
+                                    {note.name}
+                            </Link>
+                                <button className='note-btn-delete' type="button">delete</button>
+                                <p>Date Modified: {note.modified}</p>
+                        </li>
+                    </ul>
+                    <p>{note.content}</p>
                 </div>
             </div>
         )
