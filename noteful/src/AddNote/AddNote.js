@@ -1,16 +1,55 @@
 import React, {Component} from 'react';
 import './AddNote.css';
+import NotefulContext from '../NotefulContext';
+import config from '../config';
+import PropTypes from 'prop-types';
+import uuid from 'uuid';
+
 
 class AddNote extends Component {
     constructor(props) {
         super(props);
         this.state = { 
-            title: '',
-            content: 'add your note content here ...',
-            folder: ''
+            id: '',
+            name: '',
+            modified: '',
+            folderId: '',
+            content: ''
         };    
       }
 
+      static contextType = NotefulContext;
+
+      static propTypes = {
+        name: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired
+      }
+
+      updateTitle(title) {
+        this.setState({
+            name: title
+        })
+
+      }
+
+      updateContent(content) {
+          this.setState({
+              content: content
+          })
+      }
+
+      updateFolder(folderId) {
+        const noteId = uuid.v4();
+        const modifiedDate = new Date().toISOString();
+        this.setState({
+            id: noteId,
+            modified: modifiedDate,
+            folderId: folderId
+        })
+
+      }
+
+      
       myChangeHandler = (event) => {
         this.setState({folder: event.target.value});
       }
@@ -19,10 +58,47 @@ class AddNote extends Component {
         this.props.history.push(`/`)
       }
 
+      handleSubmit(event,  cb) {
+        event.preventDefault();
+        const { name, modified, folderId, content } = this.state;
+        fetch(config.API + `/notes/`, {
+              method: 'POST',
+              body: JSON.stringify(this.state),
+              headers: {
+                  'content-type': 'application/json'
+              }
+          })
+          .then(result => {
+              if (!result.ok) {
+                  return result.json().then(error => {
+                      throw error;
+                  })
+              }
+              return result.json()
+          })
+          .then(data => {
+              cb({'id': '', 
+              'name': name,
+                'modified': modified,
+                'folderId': folderId,
+                'content': content})
+          })
+          .then(
+              this.redirectToTarget()
+          )
+          .catch(error => {
+              console.log(error);
+          })
+
+  } 
+
     render() {
-        var folderList = this.props.fData.map(folder => {
+        const { folders } = this.context;
+        const { addNote } = this.context;
+
+        var folderList = folders.map(folder => {
             return(
-                <option name={folder.name}>{folder.name}</option>
+                <option name={folder.name} value={folder.id} id={folder.id}>{folder.name}</option>
             )
         })
 
@@ -37,13 +113,17 @@ class AddNote extends Component {
                 </div>
                 <div className='App-note container'>
                 <h1>Add a note ...</h1>
-                <form onSubmit={this.myChangeHandler}>
+                <form onSubmit= { e => this.handleSubmit(e, addNote)}>
                     <div className="row">
                         <div className="col-25">
                             <label for='title'>Title</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" value={this.state.title} onChange = {this.myChangeHandler} />
+                            <input 
+                            type="text" 
+                            name='title'
+                            id='title'
+                            onChange = {e => this.updateTitle(e.target.value)} />
                         </div>
                     </div>
                     <div className="row">
@@ -51,7 +131,10 @@ class AddNote extends Component {
                             <label for='title'>Note</label> 
                         </div>
                         <div className="col-75">
-                            <textarea value={this.state.content} onChange={this.handleChange} />
+                            <textarea value={this.state.content}
+                            id='content'
+                            name='content' 
+                            onChange = {e => this.updateContent(e.target.value)} />
                         </div>
                     </div>
                     <div className="row">
@@ -59,7 +142,8 @@ class AddNote extends Component {
                             <label for='title'>Folder</label> 
                         </div>
                         <div className="col-75">
-                            <select value={this.state.folder} onChange={this.handleChange}>
+                            <select value={this.state.folder} 
+                            onChange={e => this.updateFolder(e.target.value)}>
                                 {folderList}
                             </select>                            
                         </div>

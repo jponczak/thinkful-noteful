@@ -14,11 +14,6 @@ class Folder extends Component {
     }
 
     static contextType = NotefulContext;
-
-    componentDidMount() {
-        const { notes } = this.context;
-        const deleteNote = this.context;
-    }
     
     deleteNoteRequest(noteId, cb) {
         fetch(config.API + `/notes/${noteId}`, {

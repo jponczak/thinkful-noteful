@@ -7,6 +7,8 @@ import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import NotefulContext from '../NotefulContext';
 import config from '../config';
+import FolderError from '../FolderError/FolderError';
+import AddFolderError from '../AddFolderError/AddFolderError';
 import './App.css';
 import './Flex.css';
 
@@ -35,6 +37,12 @@ class App extends Component {
     addFolder = folder => {
       this.setState({
         folders: [ ...this.state.folders, folder]
+      })
+    }
+
+    addNote = note => {
+      this.setState({
+        notes: [...this.state.notes, note]
       })
     }
 
@@ -69,6 +77,7 @@ class App extends Component {
         folders: this.state.folders,
         notes: this.state.notes,
         deleteNote: this.deleteNote,
+        addNote: this.addNote,
         addFolder: this.addFolder
       }
 
@@ -93,14 +102,18 @@ class App extends Component {
               path='/notes/:noteId'
               component = {Note}
           />
-          <Route
-            path='/add-folder'
-            component = {AddFolder}
-          />
-          <Route
-            path='/add-note'
-            component = {AddNote}
-          />
+          <FolderError>
+            <Route
+              path='/add-folder'
+              component = {AddFolder}
+            />
+          </FolderError>
+          <AddFolderError>
+            <Route
+              path='/add-note'
+              component = {AddNote}
+            />
+          </AddFolderError>
           </div>
         </NotefulContext.Provider> 
         </div>
