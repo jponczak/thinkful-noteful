@@ -15,7 +15,7 @@ input[type=text], select, textarea{
   }
   
   /* Style the submit button */
-  input[type=submit] {
+  button[type=submit] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -23,6 +23,10 @@ input[type=text], select, textarea{
     border-radius: 4px;
     cursor: pointer;
     float: right;
+  }
+
+  button[type=submit].disabled, button[disabled] {
+    background-color: #ccc;
   }
   
   /* Style the container */
