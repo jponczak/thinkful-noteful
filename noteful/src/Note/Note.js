@@ -89,9 +89,9 @@ class Note extends Component {
                     >
                     delete</button>
                     <p>Date Modified: {note.modified}</p>
+                    <p>{note.content}</p>
                     </li>
                 </ul>
-                <p>{note.content}</p>
             </div>
         </div>
     )

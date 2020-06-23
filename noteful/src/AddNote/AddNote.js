@@ -119,7 +119,7 @@ class AddNote extends Component {
               'name': name,
                 'modified': modified,
                 'folderId': folderId,
-                'content': content.value})
+                'content': content})
           })
           .then(
               this.redirectToTarget()
